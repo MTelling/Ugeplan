@@ -1,4 +1,4 @@
-package dk.tellings.app;
+package dk.tellings.app.backend;
 
 public enum SchemaLocation {
 	MON_MORNING(1), MON_AFTERNOON(2),

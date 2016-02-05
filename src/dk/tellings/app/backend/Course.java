@@ -1,4 +1,4 @@
-package dk.tellings.app;
+package dk.tellings.app.backend;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;

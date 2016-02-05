@@ -1,6 +1,6 @@
 package dk.tellings.app.exceptions;
 
-import dk.tellings.app.SchemaLocation;
+import dk.tellings.app.backend.SchemaLocation;
 
 @SuppressWarnings("serial")
 public class SchemaLocationFilledException extends Exception{

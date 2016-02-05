@@ -1,4 +1,4 @@
-package dk.tellings.app;
+package dk.tellings.app.backend;
 
 import java.util.LinkedList;
 import java.util.List;
