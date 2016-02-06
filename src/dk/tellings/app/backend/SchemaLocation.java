@@ -5,7 +5,8 @@ public enum SchemaLocation {
 	TUE_MORNING(3), TUE_AFTERNOON(4),
 	WED_MORNING(5), WED_AFTERNOON(6),
 	THUR_MORNING(7), THUR_AFTERNOON(8),
-	FRI_MORNING(9), FRI_AFTERNOON(10);
+	FRI_MORNING(9), FRI_AFTERNOON(10),
+	NONE(0);
 	
 	private int location;
 	

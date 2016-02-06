@@ -1,0 +1,13 @@
+#coursePresenter {
+    -fx-background-color: rgba(100,100,100,1);
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 10, 0.0 , 0 , 1 );
+  
+}
+
+#coursePresenterLabel {
+	-fx-font-size: 24px;
+	-fx-text-fill: white;
+}
+

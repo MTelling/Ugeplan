@@ -15,7 +15,7 @@ public class WeekPlan {
 	
 	public void addCourse(Course course) throws SchemaLocationFilledException {
 		//Check if the location in the schema is already filled. 
-		if (schemaLocationFilled(course.getSchemaLocation())) {
+		if (course.getSchemaLocation() != SchemaLocation.NONE && schemaLocationFilled(course.getSchemaLocation())) {
 			throw new SchemaLocationFilledException(course.getSchemaLocation());
 		}
 		
@@ -66,4 +66,13 @@ public class WeekPlan {
 	public String toString() {
 		return this.courseList.toString();
 	}
+	
+	public List<Course> getCourseList() {
+		return courseList;
+	}
+	
+	public Course getCourse(int index) {
+		return courseList.get(index);
+	}
+
 }

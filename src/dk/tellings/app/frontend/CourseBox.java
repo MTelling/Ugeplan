@@ -1,6 +1,5 @@
 package dk.tellings.app.frontend;
 
-
 import dk.tellings.app.Driver;
 import dk.tellings.app.backend.Course;
 import javafx.event.EventHandler;
@@ -17,35 +16,63 @@ public class CourseBox extends VBox{
 	
 	private Course course;
 	private InnerShadow hoverShadow;
+	private Label courseNameLabel;
 	
 	public CourseBox(Course course) {
 		
-		this.course = course;
 		createShadow();
 		
 		this.setAlignment(Pos.CENTER);
 		this.setPrefSize(Driver.COURSEBOX_WIDTH, Driver.COURSEBOX_HEIGHT);
-		this.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
+		this.setMinSize(USE_PREF_SIZE, USE_PREF_SIZE);
 		
 		//TODO: Temporary style - should be css. 
-		this.setStyle("-fx-background-color: #FFFFFF;");
+		this.setStyle("-fx-background-color: #FFFFFF;");		
 		
-		//Create labels for the name of the course and id of the course. 
-		Label courseNameLabel = defaultLabel(course.getName());
-		Label courseIdLabel = defaultLabel("("+course.getCourseId()+")");
+		this.init(course);
+
+	}
 	
-		this.getChildren().addAll(courseNameLabel, courseIdLabel);
+	/**
+	 * Adds labels according to a given course and activates event handlers
+	 * @param course
+	 */
+	public void init(Course course) {
+		this.course = course;
+		this.courseNameLabel = defaultLabel();
+		this.courseNameLabel.setText(course.getName());
+		this.getChildren().add(courseNameLabel);	
 		
-		setMouseClickEvent();
-		setMouseHover();
+		if (!course.getCourseId().isEmpty()) {
+			Label courseIdLabel = defaultLabel();
+			courseIdLabel.setText("("+course.getCourseId()+")");
+			this.getChildren().add(courseIdLabel);
+			
+			setMouseClickEvent();
+			setMouseHover();
+		}
+	}
+
+	/**
+	 * Removes all labels and event handlers
+	 */
+	public void reset() {
+		this.getChildren().clear();
+		//Remove event handlers 
+		this.setOnMouseClicked(null);
+		this.setOnMouseEntered(null);
+		this.setOnMouseExited(null);
+		//Sets look back to default so it doesn't stay "hovered"
+		this.setEffect(null);
+		this.setCursor(Cursor.DEFAULT);
 	}
 	
 	/**
 	 * @param text
 	 * @return a label with a given text that will always keep the text centered.
 	 */
-	private Label defaultLabel(String text) {
-		Label label = new Label(text);
+	private Label defaultLabel() {
+		Label label = new Label();
 		
 		label.setWrapText(true);
 		label.setTextAlignment(TextAlignment.CENTER);
@@ -53,7 +80,27 @@ public class CourseBox extends VBox{
 		
 		return label;
 	}
+
 	
+	/**
+	 * Creates the shadow effect so it won't have to be recreated at each hover event. 
+	 */
+	private void createShadow() {
+		this.hoverShadow = new InnerShadow(8, Color.BLACK);
+	}
+	
+	///// GETTTERS AND SETTERS FROM HERE /////
+	
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	
+	///// CONTROLLER FROM HERE /////
+
 	/**
 	 * Determines what should happen when a course box is clicked. 
 	 */
@@ -62,7 +109,10 @@ public class CourseBox extends VBox{
 
 			@Override
 			public void handle(MouseEvent event) {
+				
 				System.out.println("You clicked " + course.getCourseId());
+				Driver.root.getChildren().add(new CoursePresenter(course));
+				
 			}
 			
 		});
@@ -71,7 +121,7 @@ public class CourseBox extends VBox{
 	/**
 	 * Creates the pretty shadow and changes cursor when mouse overs over a box. 
 	 */
-	private void setMouseHover() {
+	private void setMouseHover() { 
 		this.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -92,12 +142,4 @@ public class CourseBox extends VBox{
 			
 		});
 	}
-	
-	/**
-	 * Creates the shadow effect so it won't have to be recreated at each hover event. 
-	 */
-	private void createShadow() {
-		this.hoverShadow = new InnerShadow(8, Color.BLACK);
-	}
-	
 }
