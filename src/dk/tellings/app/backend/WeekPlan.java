@@ -13,15 +13,31 @@ public class WeekPlan {
 		this.courseList = new LinkedList<Course>();
 	}
 	
-	public void addCourse(Course course) throws SchemaLocationFilledException {
+	public void addCourse(Course course, int index, boolean removeCurr) throws SchemaLocationFilledException {
 		//Check if the location in the schema is already filled. 
 		if (course.getSchemaLocation() != SchemaLocation.NONE && schemaLocationFilled(course.getSchemaLocation())) {
 			throw new SchemaLocationFilledException(course.getSchemaLocation());
 		}
 		
-		//Add course if no exceptions are thrown. 
-		this.courseList.add(course); 
+		overWriteCoursePos(course, index, removeCurr);
 	}
+	
+	public void addCourse(Course course) throws SchemaLocationFilledException {
+		addCourse(course, courseList.size(), false);
+	}
+	
+	public void overWriteCoursePos(Course course, int index) {
+		overWriteCoursePos(course, index, true);
+	}
+	
+	private void overWriteCoursePos(Course course, int index, boolean removeCurr) {
+		//Add course if no exceptions are thrown. 
+		this.courseList.add(index, course);
+		if (removeCurr) {
+			this.courseList.remove(index+1);
+		}
+	}
+	
 	
 	/**
 	 * Removes a course which fits the search term.

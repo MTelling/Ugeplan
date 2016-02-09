@@ -3,9 +3,14 @@ package dk.tellings.app;
 import dk.tellings.app.backend.Course;
 import dk.tellings.app.backend.SchemaLocation;
 import dk.tellings.app.backend.WeekPlan;
+import dk.tellings.app.frontend.SettingsPane;
 import dk.tellings.app.frontend.WeekContainer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -20,6 +25,7 @@ public class Driver extends Application{
 	public static final int COURSEBOX_WIDTH = WINDOW_WIDTH / 5;
 	public static WeekPlan weekPlan;
 	public static StackPane root;
+	private static WeekContainer weekContainer;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -44,7 +50,7 @@ public class Driver extends Application{
 		}
 		
 		
-		WeekContainer weekContainer = new WeekContainer(weekPlan);
+		weekContainer = new WeekContainer(weekPlan);
 		root.getChildren().add(weekContainer);
 		
 		Scene scene = new Scene(root);
@@ -56,12 +62,46 @@ public class Driver extends Application{
 		//Add stylesheet "layout.css"
 		scene.getStylesheets().add(this.getClass().getResource("layout.css").toExternalForm());
 		
+		/**
+		 * Listen for keypressses
+		 * 
+		 * When ESC is pressed:
+		 * If the upper most child of root is not the WeekContainer, remove the uppermost child from the root.
+		 * If the upper most child of root is the WeekContainer, present the settings pane. 
+		 */
+		scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
+
+			@Override
+			public void handle(KeyEvent event) {
+				KeyCode keyCode = event.getCode();
+				if (keyCode == KeyCode.ESCAPE) {
+					Node upperMostChild = root.getChildren().get(root.getChildren().size() - 1);
+					
+					if (upperMostChild instanceof WeekContainer) {
+						root.getChildren().add(new SettingsPane());
+					} else {
+						root.getChildren().remove(upperMostChild);
+						root.getChildren().get(0).setEffect(null);
+					}
+				}
+			}
+			
+		});
+		
 		primaryStage.show();
 		
 	}
 	
 	public static void printWeekPlan() {
 		System.out.println(weekPlan);
+	}
+	
+	public static void updateWeekContainer(Course course, int i) {
+		weekContainer.updateCourseBox(i, course);
+	}
+	
+	public static void overWriteWeekContainer(Course course, int i) {
+		
 	}
 	
 }

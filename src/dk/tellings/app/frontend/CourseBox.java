@@ -15,13 +15,11 @@ import javafx.scene.text.TextAlignment;
 public class CourseBox extends VBox{
 	
 	private Course course;
-	private InnerShadow hoverShadow;
+	public static final InnerShadow HOVER_SHADOW = new InnerShadow(8, Color.BLACK);
 	private Label courseNameLabel;
 	
 	public CourseBox(Course course) {
-		
-		createShadow();
-		
+				
 		this.setAlignment(Pos.CENTER);
 		this.setPrefSize(Driver.COURSEBOX_WIDTH, Driver.COURSEBOX_HEIGHT);
 		this.setMinSize(USE_PREF_SIZE, USE_PREF_SIZE);
@@ -82,21 +80,10 @@ public class CourseBox extends VBox{
 	}
 
 	
-	/**
-	 * Creates the shadow effect so it won't have to be recreated at each hover event. 
-	 */
-	private void createShadow() {
-		this.hoverShadow = new InnerShadow(8, Color.BLACK);
-	}
-	
 	///// GETTTERS AND SETTERS FROM HERE /////
 	
 	public Course getCourse() {
 		return course;
-	}
-
-	public void setCourse(Course course) {
-		this.course = course;
 	}
 	
 	///// CONTROLLER FROM HERE /////
@@ -109,24 +96,23 @@ public class CourseBox extends VBox{
 
 			@Override
 			public void handle(MouseEvent event) {
-				
-				System.out.println("You clicked " + course.getCourseId());
+				//Add a new coursepresenter for the clicked course
 				Driver.root.getChildren().add(new CoursePresenter(course));
-				
+		
 			}
 			
 		});
 	}
 	
 	/**
-	 * Creates the pretty shadow and changes cursor when mouse overs over a box. 
+	 * Creates the pretty shadow and changes cursor when mouse hovers over a box. 
 	 */
 	private void setMouseHover() { 
 		this.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				setEffect(hoverShadow);
+				setEffect(HOVER_SHADOW);
 				setCursor(Cursor.HAND);
 			}
 			

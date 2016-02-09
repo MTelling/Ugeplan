@@ -59,4 +59,9 @@ public class WeekContainer extends HBox{
 		
 		return prettyLabel;
 	}
+	
+	public void updateCourseBox(int i, Course course) {
+		courseBoxes.get(i).reset();
+		courseBoxes.get(i).init(course);
+	}
 }

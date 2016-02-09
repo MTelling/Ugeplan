@@ -8,3 +8,5 @@
 *.class
 
 bin/dk/tellings/app/layout.css
+
+test/TestDriver.java
