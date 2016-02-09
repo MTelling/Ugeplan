@@ -42,9 +42,9 @@ public class Driver extends Application{
 		root = new StackPane();
 		
 		weekPlan = new WeekPlan();
-		weekPlan.addCourse(new Course());
-		weekPlan.addCourse(IP);
-		weekPlan.addCourse(d);
+//		weekPlan.addCourse(new Course());
+//		weekPlan.addCourse(IP);
+//		weekPlan.addCourse(d);
 		while (weekPlan.getCourseList().size() < 10) {
 			weekPlan.addCourse(new Course());
 		}

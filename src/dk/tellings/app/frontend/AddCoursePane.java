@@ -30,7 +30,7 @@ public class AddCoursePane extends Presenter {
 	private TextField idField;
 	private TextField schemaField;
 	private TextField websiteField;
-	public static final double WIDTH = 600;
+	public static final double WIDTH = Driver.WINDOW_WIDTH - 100;
 	private Alert alert = new Alert(AlertType.NONE);
 	private TextField nameField;
 	private HBox nameContainer;
@@ -87,8 +87,9 @@ public class AddCoursePane extends Presenter {
 	public HBox hContainer(Node node, String labelText) {
 		HBox container = new HBox();
 		container.setMaxWidth(containerWidth - BUTTON_SIDE_MARGIN);
-		Label label = new Label(labelText);
+		Label label = prettyLabel(labelText);
 		label.setMinWidth(USE_PREF_SIZE);
+		
 		Region space = new Region();
 		space.setMinWidth(20);
 		if (node instanceof TextField) {
@@ -96,6 +97,7 @@ public class AddCoursePane extends Presenter {
 		}
 		container.getChildren().addAll(label, space, node);
 
+		
 		return container;
 	}
 
@@ -154,7 +156,7 @@ public class AddCoursePane extends Presenter {
 				String courseId = idField.getText();
 				String audLocation = audRoomField.getText();
 				String excLocation = excRoomField.getText();
-				SchemaLocation schemaLocation = getSchemaLocation(schemaField.getText());
+				SchemaLocation schemaLocation = SchemaLocation.getSchemaLocation(schemaField.getText());
 				String courseWebsite = websiteField.getText();
 				Course course = null;
 				try {
@@ -223,24 +225,7 @@ public class AddCoursePane extends Presenter {
 
 	}
 	
-	private SchemaLocation getSchemaLocation(String str) {
-		SchemaLocation sLoc;
-		switch (str.substring(1,3)) {
-		case "1A": sLoc = SchemaLocation.MON_MORNING;	break;
-		case "2A": sLoc = SchemaLocation.MON_AFTERNOON;	break;
-		case "3A": sLoc = SchemaLocation.TUE_MORNING;	break;
-		case "4A": sLoc = SchemaLocation.TUE_AFTERNOON;	break;
-		case "5A": sLoc = SchemaLocation.WED_MORNING;	break;
-		case "5B": sLoc = SchemaLocation.WED_AFTERNOON;	break;
-		case "2B": sLoc = SchemaLocation.THUR_MORNING;	break;
-		case "1B": sLoc = SchemaLocation.THUR_AFTERNOON;	break;
-		case "4B": sLoc = SchemaLocation.FRI_MORNING;	break;
-		case "3B": sLoc = SchemaLocation.FRI_AFTERNOON;	break;
-		default: sLoc = SchemaLocation.NONE; break;
-		}
-		
-		return sLoc;
-	}
+	
 
 
 }

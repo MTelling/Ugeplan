@@ -10,7 +10,6 @@ import org.jsoup.nodes.Document;
 import dk.tellings.app.backend.SchemaLocation;
 import dk.tellings.app.exceptions.CourseIdInvalidException;
 
-
 public class CourseCrawler {
 	
 	private String bodyText;
@@ -23,6 +22,7 @@ public class CourseCrawler {
 		}
 		this.courseId = courseId;
 		Connection connection = Jsoup.connect("http://www.kurser.dtu.dk/" + courseId + ".aspx");
+		connection.timeout(10000);
 		this.htmlDoc = connection.get();
 		this.bodyText = htmlDoc.body().text();
 	}
@@ -53,8 +53,8 @@ public class CourseCrawler {
 	}
 	
 	public String getCourseName() {
-		Pattern p = Pattern.compile(courseId+"\\s[(a-zA-Z0-9) ]*"); // Should find something like F2B or E5B
-		Matcher m = p.matcher(""+htmlDoc); //Parse it to a matcher on the text of the html body
+		Pattern p = Pattern.compile(courseId+"\\s[(a-zA-Z0-9) ]*"); // ##### Algoritmer og datastrukturer 1
+		Matcher m = p.matcher(""+htmlDoc); //Parse it to a matcher on the html doc.
 		m.find();
 		return m.find() ? m.group().substring(6, m.group().length()) : SchemaLocation.NONE.getTrueLocation();
 	}

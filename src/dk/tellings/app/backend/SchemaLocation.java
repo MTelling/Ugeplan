@@ -26,39 +26,39 @@ public enum SchemaLocation {
 		String trueLocation;
 		
 		switch (this.location) {
-			case 1: trueLocation = "1A";	break;
-			case 2: trueLocation = "2A";	break;
-			case 3: trueLocation = "3A";	break;
-			case 4: trueLocation = "4A";	break;
-			case 5: trueLocation = "5A";	break;
-			case 6: trueLocation = "5B";	break;
-			case 7: trueLocation = "2B";	break;
-			case 8: trueLocation = "1B";	break;
-			case 9: trueLocation = "4B";	break;
-			case 10: trueLocation = "3B";	break;
+			case 0: trueLocation = "1A";	break;
+			case 1: trueLocation = "2A";	break;
+			case 2: trueLocation = "3A";	break;
+			case 3: trueLocation = "4A";	break;
+			case 4: trueLocation = "5A";	break;
+			case 5: trueLocation = "5B";	break;
+			case 6: trueLocation = "2B";	break;
+			case 7: trueLocation = "1B";	break;
+			case 8: trueLocation = "4B";	break;
+			case 9: trueLocation = "3B";	break;
 			default: trueLocation = "NONE"; break;
 		}
 		
 		return trueLocation;
 	}
 	
-	public int getArrayLocation(String str) {
-		int index;
-		
-		switch (str) {
-			case "1A": index = 0;	break;
-			case "2A": index = 1;	break;
-			case "3A": index = 2;	break;
-			case "4A": index = 3;	break;
-			case "5A": index = 4;	break;
-			case "5B": index = 5;	break;
-			case "2B": index = 6;	break;
-			case "1B": index = 7;	break;
-			case "4B": index = 8;	break;
-			case "3B": index = 9;	break;
-			default: index = 10; break;
+	
+	public static SchemaLocation getSchemaLocation(String str) {
+		SchemaLocation sLoc;
+		switch (str.substring(1,3)) {
+		case "1A": sLoc = SchemaLocation.MON_MORNING;	break;
+		case "2A": sLoc = SchemaLocation.MON_AFTERNOON;	break;
+		case "3A": sLoc = SchemaLocation.TUE_MORNING;	break;
+		case "4A": sLoc = SchemaLocation.TUE_AFTERNOON;	break;
+		case "5A": sLoc = SchemaLocation.WED_MORNING;	break;
+		case "5B": sLoc = SchemaLocation.WED_AFTERNOON;	break;
+		case "2B": sLoc = SchemaLocation.THUR_MORNING;	break;
+		case "1B": sLoc = SchemaLocation.THUR_AFTERNOON;	break;
+		case "4B": sLoc = SchemaLocation.FRI_MORNING;	break;
+		case "3B": sLoc = SchemaLocation.FRI_AFTERNOON;	break;
+		default: sLoc = SchemaLocation.NONE; break;
 		}
 		
-		return index;
+		return sLoc;
 	}
 }

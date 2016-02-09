@@ -1,5 +1,6 @@
 package dk.tellings.app.exceptions;
 
+@SuppressWarnings("serial")
 public class CourseIdInvalidException extends Exception{
 	
 	public CourseIdInvalidException(String courseId) {
